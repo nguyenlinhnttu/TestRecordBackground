@@ -1,0 +1,2 @@
+rootProject.name = "TestRecordBackground"
+include ':app'
