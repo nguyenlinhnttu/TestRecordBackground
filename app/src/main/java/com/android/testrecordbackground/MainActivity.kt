@@ -52,15 +52,12 @@ class MainActivity : AppCompatActivity() {
         } else {
             isRunning = true
             button?.text = "Running"
-            val WAVPath =
-                applicationContext.getExternalFilesDir(null)?.absolutePath + "/FinalAudio.wav"
             //Start service
             val serviceIntent = Intent(
                 applicationContext,
                 ForegroundService::class.java
             )
             serviceIntent.putExtra("inputExtra", "Foreground Service Example in Android")
-            serviceIntent.putExtra("WAVPath", WAVPath)
             ContextCompat.startForegroundService(this, serviceIntent)
         }
     }

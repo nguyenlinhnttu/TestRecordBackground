@@ -14,8 +14,8 @@ import androidx.core.app.NotificationCompat
 import java.io.IOException
 
 class ForegroundService : Service() {
-    private var WAVPath = ""
     private var recorder: MediaRecorder? = null
+
     companion object {
         const val CHANNEL_ID = "ForegroundServiceChannel"
         private const val TAG = "ForegroundService"
@@ -23,7 +23,6 @@ class ForegroundService : Service() {
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         val input = intent.getStringExtra("inputExtra")
-        WAVPath = intent.getStringExtra("WAVPath").toString()
         //Từ Android 0 chúng ta cần tạo 1 notification.
         createNotificationChannel()
         val notificationIntent = Intent(this, MainActivity::class.java)
@@ -72,6 +71,7 @@ class ForegroundService : Service() {
 
     private fun startStreaming() {
         Log.i(TAG, "Starting in foreground service)")
+        val WAVPath = applicationContext.getExternalFilesDir(null)?.absolutePath + "/FinalAudio.wav"
         recorder = MediaRecorder().apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
             setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
